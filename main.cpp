@@ -1,38 +1,40 @@
 #include <iostream>
-#define  B 100
-#define A 5
+#include <fstream>
+#include <conio.h>
+#define A 100
+#define B 100
 using namespace std;
 
 int main() {
-    char str[A][B];
-    int kolvo = 0, size, lenght;
+    char s[A], Str[B];
+    int NumStr = 0, lengthS = 0, m = 0;
     bool flag;
-    //считывает строки с консоли
-    for(int i = 0; i<A; i++){
-        std::cin.getline(str[i], B);
+    ifstream f1("C:\\Users\\Public\\Clion\\project3\\input.txt");
+    cout << "Enter substring: ";
+    cin.getline(s, A);
+    while(s[lengthS] != '\0'){
+        lengthS++;
     }
-    //узнает длину строки
-    for(int i = 0; i<A; i++) {
-        lenght = 0;
-        flag = true;
-        while (str[i][lenght] != '\0'){
-            lenght++;
-        }
-        //узнает четная она или нет
-        if (lenght % 2 == 1 ){
-            size = (lenght + 1) / 2;
-        }else {
-            size = (lenght) / 2;
-        }
-        //узнает является ли слово паллиндромом
-        for(int j = 0; j<= size && flag; j++){
-            if(str[i][j] != str[i][lenght-j-1]){
-                flag = false;
+    while (!f1.eof()){
+        f1.getline(Str, B );
+        NumStr++;
+        for(int i = 0; Str[i] != '\0'; i++){
+            if (Str[i] == s[0]){
+                flag = true;
+                int k = i;
+                while(flag && (k - i < lengthS)){
+                    if(Str[k] != s[k - i]){
+                        flag = false;
+                    }
+                    k++;
+                    m++;
+                }
+                if (flag && m == lengthS){
+                    cout << NumStr << endl;
+                }
+                m = 0;
             }
         }
-        if (flag){
-            kolvo++;
-        }
     }
-    cout << "Palindrom:"<< num ;
+    f1.close();
 }
